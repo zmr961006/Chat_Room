@@ -1,0 +1,93 @@
+/*************************************************************************
+	> File Name: main_show.c
+	> Author: 
+	> Mail: 
+	> Created Time: 2015年08月15日 星期六 00时35分00秒
+ ************************************************************************/
+
+#include<stdio.h>
+#include<gtk/gtk.h>
+#include<apue.h>
+#include"../srv/serve.h"
+#include<gtk/gtk.h>
+#include"../common/common.h"
+GtkWidget *show_ser(){
+
+    GtkWidget *window;
+    GtkWidget *view  ;
+    GtkTextBuffer*buffer;
+    GtkWidget *text  ;
+    GtkWidget *box   ;
+    GtkWidget *button;
+
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);       // 创建服务器主窗口
+    gtk_window_set_title(GTK_WINDOW(window),"serve");
+    g_signal_connect(G_OBJECT(window),"delete_event",
+                     G_CALLBACK(gtk_widget_destroy),NULL);
+    gtk_window_set_default_size(GTK_WINDOW(window),400,600);
+    gtk_container_set_border_width(GTK_CONTAINER(window),10);
+    
+    box = gtk_vbox_new(FALSE,0);
+    gtk_container_add(GTK_CONTAINER(window),box);                //创建主要的盒子
+
+    view = gtk_scrolled_window_new(NULL,NULL);                  //显示登录的人，日志等一干信息
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(view),
+            GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+    text = gtk_text_view_new();                                  //消息框
+    gtk_box_pack_start(GTK_BOX(box),view,TRUE,TRUE,5);         //向盒子加入视图
+    gtk_container_add(GTK_CONTAINER(view),text);                //将文本框加入视图
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(text));     //buffer接受文本框信息 
+    
+    button = gtk_button_new_with_label("start server");                   //开启服务器
+    gtk_box_pack_start(GTK_BOX(box),button,FALSE,FALSE,5);
+    g_signal_connect(G_OBJECT(button),"clicked",
+                    G_CALLBACK(main_ser）,NULL);
+    
+    button = gtk_button_new_with_label("mangement");                   //开启服务器
+    gtk_box_pack_start(GTK_BOX(box),button,FALSE,FALSE,5);
+    g_signal_connect(G_OBJECT(button),"clicked",
+                    G_CALLBACK(mangement),NULL);
+    
+    return window;
+}
+   
+
+void mangement(GtkButton *button,gpointer data){
+       
+      GtkWidget *window;
+      window = show_mangement(data);
+      gtk_widget_show_all(window);
+}
+
+
+GtkWidget *show_mangement(){
+      
+      	GtkWidget *window;
+        GtkWidget *button;
+        GtkWidget *box   ;
+        
+	
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);       // 创建服务器主窗口
+        gtk_window_set_title(GTK_WINDOW(window),"serve");
+     	g_signal_connect(G_OBJECT(window),"delete_event",
+                     G_CALLBACK(destroy),(gpointer)window);
+    	gtk_window_set_default_size(GTK_WINDOW(window),400,600);
+    	gtk_container_set_border_width(GTK_CONTAINER(window),10);
+    
+    	box = gtk_vbox_new(FALSE,0);
+    	gtk_container_add(GTK_CONTAINER(window),box);                //
+
+        
+        button = gtk_button_new_with_label("take off");                   //开启服务器
+        gtk_box_pack_start(GTK_BOX(vbox),button,FALSE,FALSE,5);
+        g_signal_connect(G_OBJECT(button),"clicked",
+                    G_CALLBACK(start),NULL);
+
+        button = gtk_button_new_with_label("change some");                   //开启服务器
+        gtk_box_pack_start(GTK_BOX(vbox),button,FALSE,FALSE,5);
+        g_signal_connect(G_OBJECT(button),"clicked",
+                    G_CALLBACK(start),NULL);
+    
+        return window;
+}
+
